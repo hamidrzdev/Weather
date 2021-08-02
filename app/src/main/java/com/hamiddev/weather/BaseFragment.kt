@@ -12,8 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-@AndroidEntryPoint
-abstract class BaseFragment<VM : ViewModel, VB : ViewBinding>(
+abstract class BaseFragment<VB : ViewBinding>(
     private var inflate: Inflate<VB>
 ) : Fragment() {
 
