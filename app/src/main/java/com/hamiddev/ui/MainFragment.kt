@@ -8,5 +8,7 @@ import com.hamiddev.weather.databinding.MainFragmentBinding
 import kotlin.coroutines.coroutineContext
 
 
-class MainFragment:BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
+class MainFragment:BaseFragment<MainFragmentViewModel,MainFragmentBinding>(MainFragmentBinding::inflate) {
+
+
 }
