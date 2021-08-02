@@ -16,7 +16,8 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,6 +25,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
         }
     }
     compileOptions {
@@ -88,4 +92,9 @@ dependencies {
     def lifecycle_version = "2.3.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    //Neshan sdk library
+    implementation 'neshan-android-sdk:mobile-sdk:1.0.0@aar'
+    implementation 'neshan-android-sdk:services-sdk:1.0.0@aar'
+    implementation 'neshan-android-sdk:common-sdk:0.0.1@aar'
 }
