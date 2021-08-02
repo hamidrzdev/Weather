@@ -1,10 +1,8 @@
-package com.hamiddev.data
+package com.hamiddev.data.dataSource
 
 import com.hamiddev.model.WeatherResponse
 import com.hamiddev.weather.ApiService
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import org.neshan.common.model.LatLng
 
 class WeatherRemoteDataSource(private val apiService: ApiService) : WeatherDataSource {

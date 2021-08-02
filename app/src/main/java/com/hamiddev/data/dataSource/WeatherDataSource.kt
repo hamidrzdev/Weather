@@ -1,4 +1,4 @@
-package com.hamiddev.data
+package com.hamiddev.data.dataSource
 
 import com.hamiddev.model.WeatherResponse
 import kotlinx.coroutines.flow.Flow
