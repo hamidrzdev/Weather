@@ -97,4 +97,6 @@ dependencies {
     implementation 'neshan-android-sdk:mobile-sdk:1.0.0@aar'
     implementation 'neshan-android-sdk:services-sdk:1.0.0@aar'
     implementation 'neshan-android-sdk:common-sdk:0.0.1@aar'
+
+    implementation 'com.karumi:dexter:6.2.3'
 }
