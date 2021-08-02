@@ -37,6 +37,7 @@
                 app:layout_constraintTop_toBottomOf="@id/toolbarContainer">
 
                 <TextView
+                    android:id="@+id/dayNameTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -44,6 +45,7 @@
                     tools:text="امروز" />
 
                 <TextView
+                    android:id="@+id/dateTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?textAppearanceBody1"
@@ -73,6 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@id/imageView">
 
                 <TextView
+                    android:id="@+id/degreeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?textAppearanceHeadline1"
