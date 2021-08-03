@@ -8,12 +8,12 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("onecall")
-    fun getWeather(
-        @Query("lat") lat: String,
-        @Query("lon") lon: String,
+    suspend fun getWeather(
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
         @Query("exclude") exclude: String,
         @Query("lang") lang: String,
         @Query("appid") accessToken: String
-    ): Flow<WeatherResponse>
+    ): WeatherResponse
 
 }

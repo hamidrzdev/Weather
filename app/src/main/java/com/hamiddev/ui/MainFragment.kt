@@ -8,14 +8,15 @@ import com.hamiddev.weather.BaseFragment
 import com.hamiddev.weather.Inflate
 import com.hamiddev.weather.R
 import com.hamiddev.weather.databinding.MainFragmentBinding
+import dagger.hilt.android.AndroidEntryPoint
 import org.neshan.common.model.LatLng
 import timber.log.Timber
 import kotlin.coroutines.coroutineContext
 
-
+@AndroidEntryPoint
 class MainFragment :
     BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
-    val viewModel : MainFragmentViewModel by viewModels()
+    val viewModel: MainFragmentViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +30,7 @@ class MainFragment :
 
     fun observe() {
         viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            Timber.i("wea -> ${it.timezone}")
+            Timber.i("weaaa -> ${it.timezone}")
         }
     }
 }
