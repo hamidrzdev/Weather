@@ -16,9 +16,9 @@ import javax.inject.Inject
 class WeatherRepositoryImpl @Inject constructor(private val weatherRemoteDataSource: WeatherDataSource) :
     WeatherRepository {
 
-    override fun getWeather(latLng: LatLng, accessToken: String): Flow<WeatherResponse> {
+    override fun getWeather(latLng: LatLng): Flow<WeatherResponse> {
         return flow {
-            emit(weatherRemoteDataSource.getWeather(latLng,accessToken))
+            emit(weatherRemoteDataSource.getWeather(latLng))
         }.flowOn(Dispatchers.IO)
 
     }

@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 import org.neshan.common.model.LatLng
 
 interface WeatherDataSource {
-    suspend fun getWeather(latLng: LatLng, accessToken: String): WeatherResponse
+    suspend fun getWeather(latLng: LatLng): WeatherResponse
 }
