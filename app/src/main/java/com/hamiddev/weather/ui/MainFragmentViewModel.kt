@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hamiddev.weather.common.handleException
 import com.hamiddev.weather.data.repo.WeatherRepository
-import com.hamiddev.weather.model.WeatherResponse
+import com.hamiddev.weather.model.server.WeatherResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

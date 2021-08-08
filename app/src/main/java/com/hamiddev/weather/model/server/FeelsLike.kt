@@ -1,4 +1,4 @@
-package com.hamiddev.weather.model
+package com.hamiddev.weather.model.server
 
 data class FeelsLike(
     val day: Double,

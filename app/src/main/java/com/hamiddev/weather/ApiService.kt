@@ -1,6 +1,6 @@
 package com.hamiddev.weather
 
-import com.hamiddev.weather.model.WeatherResponse
+import com.hamiddev.weather.model.server.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

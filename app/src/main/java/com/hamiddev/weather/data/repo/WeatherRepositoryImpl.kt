@@ -1,7 +1,7 @@
 package com.hamiddev.weather.data.repo
 
 import com.hamiddev.weather.data.dataSource.WeatherDataSource
-import com.hamiddev.weather.model.WeatherResponse
+import com.hamiddev.weather.model.server.WeatherResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
