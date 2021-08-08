@@ -40,6 +40,10 @@ class MainFragment :
                 )
                 it.dayNameTv.text = dayName(timestamp)
                 it.dateTv.text = fullDate(timestamp)
+                it.degreeTv.text = weather.current.temp.toInt().toString()
+                it.cTv.text = "°C"
+                it.cityNameTv.text = weather.timezone
+                it.weatherInfoTv.text = weather.current.weather[0].description
             }
         }
     }

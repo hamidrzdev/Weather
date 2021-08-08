@@ -82,6 +82,7 @@
                     tools:text="65" />
 
                 <TextView
+                    android:id="@+id/cTv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="20dp"
