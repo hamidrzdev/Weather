@@ -13,6 +13,7 @@ class WeatherRemoteDataSource @Inject constructor(private val apiService: ApiSer
                 latLng.longitude,
                 "minutely,alerts",
                 "fa",
+                "metric",
                 ACCESS_TOKEN
             )
 }
