@@ -2,15 +2,23 @@ package com.hamiddev.weather.ui
 
 import androidx.fragment.app.viewModels
 import com.hamiddev.weather.BaseFragment
+import com.hamiddev.weather.common.weatherIconLink
 import com.hamiddev.weather.databinding.MainFragmentBinding
+import com.hamiddev.weather.service.ImageLoadingService
 import dagger.hilt.android.AndroidEntryPoint
 import org.neshan.common.model.LatLng
-import timber.log.Timber
+import saman.zamani.persiandate.PersianDate
+import saman.zamani.persiandate.PersianDateFormat
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment :
     BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
     val viewModel: MainFragmentViewModel by viewModels()
+    val persianDateFormat = PersianDateFormat("l")
+
+    @Inject
+    lateinit var imageLoadingService: ImageLoadingService
 
     override fun initView() {
         super.initView()
@@ -19,12 +27,36 @@ class MainFragment :
     }
 
     private fun callViewModel() {
-        viewModel.getWeather(LatLng(35.83266, 50.99155))
+        viewModel.getWeather(LatLng(35.715298, 51.404343))
     }
 
     private fun observe() {
-        viewModel.weatherLiveData.observe(viewLifecycleOwner) {
-            Timber.i("weaaa -> ${it.timezone}")
+        viewModel.weatherLiveData.observe(viewLifecycleOwner) { weather ->
+            val timestamp = weather.current.dt.toLong()
+            binding?.let {
+                imageLoadingService.load(
+                    it.imageView,
+                    weatherIconLink(weather.current.weather[0].icon)
+                )
+                it.dayNameTv.text = dayName(timestamp)
+                it.dateTv.text = fullDate(timestamp)
+            }
         }
+    }
+
+    private fun dayName(timestamp: Long): String {
+        val persianDate = PersianDate(timestamp * 1000)
+        val persianDateFormat = PersianDateFormat("l")
+
+        if (persianDate.shDay == PersianDate().shDay)
+            return "امروز"
+
+        return persianDateFormat.format(persianDate)
+    }
+
+    private fun fullDate(timestamp: Long): String {
+        val persianDate = PersianDate(timestamp * 1000)
+        val persianDateFormat = PersianDateFormat("d F Y")
+        return persianDateFormat.format(persianDate)
     }
 }

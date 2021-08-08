@@ -8,4 +8,4 @@ fun <T> Flow<T>.handleException(): Flow<T> =
     catch { e -> Timber.i("ssdss -> ${e.message}") }
 
 fun weatherIconLink(name: String) =
-    "http://openweathermap.org/img/wn/$name@2x.png"
+    "https://openweathermap.org/img/wn/$name@2x.png"
