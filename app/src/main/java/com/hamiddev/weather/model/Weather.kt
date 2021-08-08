@@ -1,4 +1,4 @@
-package com.hamiddev.model
+package com.hamiddev.weather.model
 
 data class Weather(
     val description: String,

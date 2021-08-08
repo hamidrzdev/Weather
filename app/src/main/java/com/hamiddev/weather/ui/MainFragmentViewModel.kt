@@ -1,20 +1,15 @@
-package com.hamiddev.ui
+package com.hamiddev.weather.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hamiddev.common.handleException
-import com.hamiddev.data.repo.WeatherRepository
-import com.hamiddev.model.WeatherResponse
-import com.hamiddev.weather.ACCESS_TOKEN
+import com.hamiddev.weather.common.handleException
+import com.hamiddev.weather.data.repo.WeatherRepository
+import com.hamiddev.weather.model.WeatherResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import org.neshan.common.model.LatLng
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel

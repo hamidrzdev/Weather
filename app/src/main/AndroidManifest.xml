@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hamiddev.common.a" />
+        <activity android:name="com.hamiddev.weather.common.a" />
     </application>
 
 </manifest>

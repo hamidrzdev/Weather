@@ -1,16 +1,12 @@
-package com.hamiddev.data.repo
+package com.hamiddev.weather.data.repo
 
-import android.widget.Toast
-import com.hamiddev.data.dataSource.WeatherDataSource
-import com.hamiddev.data.dataSource.WeatherRemoteDataSource
-import com.hamiddev.model.WeatherResponse
+import com.hamiddev.weather.data.dataSource.WeatherDataSource
+import com.hamiddev.weather.model.WeatherResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import org.neshan.common.model.LatLng
-import timber.log.Timber
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(private val weatherRemoteDataSource: WeatherDataSource) :

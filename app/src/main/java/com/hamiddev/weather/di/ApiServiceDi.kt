@@ -1,4 +1,4 @@
-package com.hamiddev.di
+package com.hamiddev.weather.di
 
 import com.hamiddev.weather.ApiService
 import com.hamiddev.weather.BASE_URL

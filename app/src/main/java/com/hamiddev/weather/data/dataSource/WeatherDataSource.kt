@@ -1,7 +1,6 @@
-package com.hamiddev.data.dataSource
+package com.hamiddev.weather.data.dataSource
 
-import com.hamiddev.model.WeatherResponse
-import kotlinx.coroutines.flow.Flow
+import com.hamiddev.weather.model.WeatherResponse
 import org.neshan.common.model.LatLng
 
 interface WeatherDataSource {

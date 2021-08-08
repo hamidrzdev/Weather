@@ -1,7 +1,6 @@
 package com.hamiddev.weather
 
-import com.hamiddev.model.WeatherResponse
-import kotlinx.coroutines.flow.Flow
+import com.hamiddev.weather.model.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

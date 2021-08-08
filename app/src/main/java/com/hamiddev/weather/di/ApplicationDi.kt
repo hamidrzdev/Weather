@@ -1,8 +1,8 @@
-package com.hamiddev.di
+package com.hamiddev.weather.di
 
-import com.hamiddev.data.dataSource.WeatherRemoteDataSource
-import com.hamiddev.data.repo.WeatherRepository
-import com.hamiddev.data.repo.WeatherRepositoryImpl
+import com.hamiddev.weather.data.dataSource.WeatherRemoteDataSource
+import com.hamiddev.weather.data.repo.WeatherRepository
+import com.hamiddev.weather.data.repo.WeatherRepositoryImpl
 import com.hamiddev.weather.ApiService
 import dagger.Module
 import dagger.Provides

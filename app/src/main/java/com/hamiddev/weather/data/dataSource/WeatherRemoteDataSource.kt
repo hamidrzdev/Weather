@@ -1,10 +1,8 @@
-package com.hamiddev.data.dataSource
+package com.hamiddev.weather.data.dataSource
 
-import com.hamiddev.model.WeatherResponse
+import com.hamiddev.weather.model.WeatherResponse
 import com.hamiddev.weather.ACCESS_TOKEN
 import com.hamiddev.weather.ApiService
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import org.neshan.common.model.LatLng
 import javax.inject.Inject
 
