@@ -1,9 +1,12 @@
 package com.hamiddev.weather.model.server
 
+import com.hamiddev.weather.model.DayWeather
+import com.hamiddev.weather.model.HourWeather
+
 data class Daily(
     val clouds: Int,
     val dew_point: Double,
-    val dt: Int,
+    val dt: Long,
     val feels_like: FeelsLike,
     val humidity: Int,
     val moon_phase: Double,
@@ -19,4 +22,7 @@ data class Daily(
     val wind_deg: Int,
     val wind_gust: Double,
     val wind_speed: Double
-)
+){
+    fun toDayWeather()=
+        DayWeather(dt,weather[0].icon,temp.min.toString(),temp.max.toString())
+}

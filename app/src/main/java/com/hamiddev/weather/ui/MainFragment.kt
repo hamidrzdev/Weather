@@ -4,6 +4,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hamiddev.weather.BaseFragment
+import com.hamiddev.weather.common.dayName
+import com.hamiddev.weather.common.fullDate
 import com.hamiddev.weather.common.weatherIconLink
 import com.hamiddev.weather.databinding.MainFragmentBinding
 import com.hamiddev.weather.service.ImageLoadingService
@@ -41,10 +43,11 @@ class MainFragment :
                 )
                 it.dayNameTv.text = dayName(timestamp)
                 it.dateTv.text = fullDate(timestamp)
-                it.degreeTv.text = weather.current.temp.toInt().toString()
+                it.degreeTv.text = weather.current.feels_like.toInt().toString()
                 it.cTv.text = "°C"
                 it.cityNameTv.text = weather.timezone
                 it.weatherInfoTv.text = weather.current.weather[0].description
+                it.weather7daysTv.text = "آب هوای 7 روز آینده"
 
                 it.hourForecast.layoutManager =
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -54,23 +57,19 @@ class MainFragment :
                             it.toHourWeather()
                         }.toMutableList()
                 }
+
+                it.dayForecast.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                it.dayForecast.adapter = DayWeatherAdapter(imageLoadingService).apply {
+                    dayWeatherList =
+                        weather.daily.map {
+                            it.toDayWeather()
+                        }.toMutableList()
+                }
+
             }
         }
     }
 
-    private fun dayName(timestamp: Long): String {
-        val persianDate = PersianDate(timestamp * 1000)
-        val persianDateFormat = PersianDateFormat("l")
 
-        if (persianDate.shDay == PersianDate().shDay)
-            return "امروز"
-
-        return persianDateFormat.format(persianDate)
-    }
-
-    private fun fullDate(timestamp: Long): String {
-        val persianDate = PersianDate(timestamp * 1000)
-        val persianDateFormat = PersianDateFormat("d F Y")
-        return persianDateFormat.format(persianDate)
-    }
 }
