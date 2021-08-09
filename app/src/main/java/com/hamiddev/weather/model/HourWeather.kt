@@ -1,7 +1,7 @@
 package com.hamiddev.weather.model
 
 data class HourWeather(
-    val hour:String,
+    val hour:Long,
     val image:String,
-    val temp:String
+    val temp:Double
 )

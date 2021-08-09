@@ -1,6 +1,8 @@
 package com.hamiddev.weather.ui
 
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.hamiddev.weather.BaseFragment
 import com.hamiddev.weather.common.weatherIconLink
 import com.hamiddev.weather.databinding.MainFragmentBinding
@@ -15,7 +17,6 @@ import javax.inject.Inject
 class MainFragment :
     BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
     val viewModel: MainFragmentViewModel by viewModels()
-    val persianDateFormat = PersianDateFormat("l")
 
     @Inject
     lateinit var imageLoadingService: ImageLoadingService
@@ -44,6 +45,15 @@ class MainFragment :
                 it.cTv.text = "°C"
                 it.cityNameTv.text = weather.timezone
                 it.weatherInfoTv.text = weather.current.weather[0].description
+
+                it.hourForecast.layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                it.hourForecast.adapter = HourWeatherAdapter(imageLoadingService).apply {
+                    hourWeatherList =
+                        weather.hourly.subList(0, 13).map {
+                            it.toHourWeather()
+                        }.toMutableList()
+                }
             }
         }
     }
