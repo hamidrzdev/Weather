@@ -17,14 +17,17 @@ class MainFragmentViewModel @Inject constructor(private val weatherRepository: W
     ViewModel() {
 
     val weatherLiveData = MutableLiveData<WeatherResponse>()
+    val showProgressBar = MutableLiveData<Boolean>()
 
     fun getWeather(latLng: LatLng) {
         viewModelScope.launch {
+            showProgressBar.value = true
             weatherRepository.getWeather(latLng)
                 .handleException()
                 .collect {
                     weatherLiveData.value = it
                 }
+            showProgressBar.value = false
         }
     }
 }

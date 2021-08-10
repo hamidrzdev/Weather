@@ -46,11 +46,18 @@ class MainFragment :
     lateinit var imageLoadingService: ImageLoadingService
     private lateinit var locationClient: FusedLocationProviderClient
 
+    override fun onResume() {
+        super.onResume()
+        initLocationClient()
+    }
+
     override fun initView() {
         super.initView()
+        locationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+
+
         getPermission()
         observe()
-        initLocationClient()
     }
 
     private fun callViewModel(latLng: LatLng) {
@@ -59,7 +66,6 @@ class MainFragment :
 
     @SuppressLint("MissingPermission")
     fun initLocationClient() {
-        locationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         if (isGranted) {
             turnGPSOn(requireActivity())
             if (checkGps())
@@ -68,13 +74,18 @@ class MainFragment :
                         callViewModel(LatLng(it.latitude,it.longitude))
                     }
                 }
-            else
+            else{
                 startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            }
         } else
             showSnackBarToGetPermission(requireView())
     }
 
     private fun observe() {
+        viewModel.showProgressBar.observe(viewLifecycleOwner){
+            binding!!.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        }
+
         viewModel.weatherLiveData.observe(viewLifecycleOwner) { weather ->
             val timestamp = weather.current.dt.toLong()
             binding?.let {
@@ -151,6 +162,7 @@ class MainFragment :
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         isGranted = it.areAllPermissionsGranted()
+
                     }
                 }
 
