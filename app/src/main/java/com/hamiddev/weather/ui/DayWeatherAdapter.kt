@@ -16,10 +16,7 @@ import com.hamiddev.weather.service.ImageLoadingService
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
 
-class DayWeatherAdapter(
-    val imageLoadingService: ImageLoadingService,
-    var dayWeatherListener: DayWeatherListener
-) :
+class DayWeatherAdapter(val imageLoadingService: ImageLoadingService,val onItemClicked:DayWeatherListener) :
     RecyclerView.Adapter<DayWeatherAdapter.DayWeatherViewHolder>() {
     var dayWeatherList = mutableListOf<DayWeather>()
         set(value) {
@@ -42,7 +39,7 @@ class DayWeatherAdapter(
             temp.text = "${formatTemp(dayModel.minTemp)} / ${formatTemp(dayModel.maxTemp)}"
 
             binding.root.setOnClickListener {
-                dayWeatherListener.onItemClicked(dayModel)
+                onItemClicked.onItemClicked(dayModel)
             }
         }
     }
