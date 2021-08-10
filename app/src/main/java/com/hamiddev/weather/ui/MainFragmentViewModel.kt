@@ -18,6 +18,7 @@ class MainFragmentViewModel @Inject constructor(private val weatherRepository: W
 
     val weatherLiveData = MutableLiveData<WeatherResponse>()
     val showProgressBar = MutableLiveData<Boolean>()
+    val latLng = MutableLiveData<LatLng>()
 
     fun getWeather(latLng: LatLng) {
         viewModelScope.launch {

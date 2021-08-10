@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.hamiddev.weather.R
 import com.hamiddev.weather.common.dayName
 import com.hamiddev.weather.common.digitalDate
+import com.hamiddev.weather.common.formatTemp
 import com.hamiddev.weather.common.weatherIconLink
 import com.hamiddev.weather.databinding.FragmentWeatherDetailBinding
 import com.hamiddev.weather.service.ImageLoadingService
@@ -51,19 +52,12 @@ class DetailWeatherFragment : BottomSheetDialogFragment() {
 
         binding.dayNameTv.text = dayName(bundle.timestamp)
         imageLoadingService.load(binding.image, weatherIconLink(bundle.image))
-        binding.minTempTv.text = bundle.minTemp.toString()
-        binding.maxTempTv.text = bundle.maxTemp.toString()
+        binding.minTempTv.text = formatTemp( bundle.minTemp.toString())
+        binding.maxTempTv.text = formatTemp(bundle.maxTemp.toString())
         binding.toloValue.text = digitalDate(bundle.sunrise.toLong())
         binding.qoroobValue.text = digitalDate(bundle.sunset.toLong())
         binding.windSpeedValue.text = bundle.windSpeed.toString()
         binding.uvValue.text = bundle.uv.toString()
-        val ff = "${bundle.rain * 100}".substring(0, if (bundle.rain.toInt() *100 >= 10) 4 else 3).plus("%")
-
-        val dd = (bundle.rain.toString().length).toString()
-
         binding.rainValue.text = "${bundle.rain * 100 }%"
-        Timber.i("weaa * 1 -> ${bundle.rain * 1}")
-        /*Timber.i("weaa * 10 -> ${bundle.rain * 10}")
-        Timber.i("weaa * 100 -> ${bundle.rain * 100}")*/
     }
 }

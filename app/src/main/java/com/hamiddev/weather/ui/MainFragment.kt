@@ -8,12 +8,13 @@ import android.location.LocationManager
 import android.net.Uri
 import android.provider.Settings
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.material.snackbar.Snackbar
 import com.hamiddev.weather.BaseFragment
 import com.hamiddev.weather.BuildConfig
@@ -31,8 +32,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.neshan.common.model.LatLng
-import saman.zamani.persiandate.PersianDate
-import saman.zamani.persiandate.PersianDateFormat
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -40,6 +40,7 @@ class MainFragment :
     BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
     val viewModel: MainFragmentViewModel by viewModels()
     var isGranted = false
+    var isFirst: Boolean = true
 
 
     @Inject
@@ -51,12 +52,15 @@ class MainFragment :
         initLocationClient()
     }
 
+    @SuppressLint("MissingPermission")
     override fun initView() {
+        Timber.i("weaa -> onCreate")
         super.initView()
         locationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
 
         getPermission()
+        initLocationClient()
         observe()
     }
 
@@ -71,22 +75,35 @@ class MainFragment :
             if (checkGps())
                 locationClient.lastLocation.addOnSuccessListener { location ->
                     location?.let {
-                        callViewModel(LatLng(it.latitude,it.longitude))
+                        Timber.i("weaa location -> ${it.longitude} / ${it.longitude}")
+                        viewModel.latLng.value = LatLng(it.latitude, it.longitude)
                     }
                 }
-            else{
-                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+            else {
+                Toast.makeText(requireContext(),"turn on GPS",Toast.LENGTH_SHORT).show()
             }
         } else
             showSnackBarToGetPermission(requireView())
     }
 
+
+
     private fun observe() {
-        viewModel.showProgressBar.observe(viewLifecycleOwner){
-            binding!!.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        viewModel.latLng.observe(viewLifecycleOwner){
+            callViewModel(it)
+        }
+
+        viewModel.showProgressBar.observe(viewLifecycleOwner) {
+            if (isFirst)
+                binding!!.progressBar.visibility = if (it) View.VISIBLE else View.GONE
+            else
+                binding!!.progressBar.visibility = View.GONE
         }
 
         viewModel.weatherLiveData.observe(viewLifecycleOwner) { weather ->
+            if (weather != null)
+                isFirst = false
+
             val timestamp = weather.current.dt.toLong()
             binding?.let {
                 imageLoadingService.load(
@@ -140,7 +157,7 @@ class MainFragment :
         }
     }
 
-    fun checkGps(): Boolean {
+    private fun checkGps(): Boolean {
         var gpsStatus = false
         val locationManager =
             requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
