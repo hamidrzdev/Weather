@@ -9,7 +9,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorOnSurface">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/gray</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/lightPurple</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/shabnam</item>
@@ -35,6 +35,7 @@
 
         <item name="dividerColor">@color/gray</item>
         <item name="android:textColorSecondary">@color/darkGray</item>
+
     </style>
 
 </resources>

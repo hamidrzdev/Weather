@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="12dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="12dp">
+
+    <View
+        android:id="@+id/circle"
+        android:layout_width="100dp"
+        android:layout_height="7dp"
+        android:background="@drawable/bottom_sheet_circle_view"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"/>
+
+
+    <TextView
+        android:id="@+id/dayNameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceHeadline4"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:text="دوشنبه" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/image"
+        android:layout_width="70dp"
+        android:layout_height="80dp"
+        app:layout_constraintLeft_toRightOf="@id/dayNameTv"
+        app:layout_constraintTop_toBottomOf="@id/circle"
+        tools:src="@drawable/test" />
+
+    <TextView
+        android:id="@+id/minTempTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:text="36C" />
+
+    <TextView
+        android:id="@+id/maxTempTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:textAppearance="?textAppearanceHeadline4"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/image"
+        app:layout_constraintRight_toLeftOf="@id/minTempTv"
+        app:layout_constraintTop_toTopOf="@id/image"
+        tools:text="40C" />
+
+    <TextView
+        android:id="@+id/toloTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingRight="@dimen/padding_weather_detail_item"
+        android:text="طلوع"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image" />
+
+    <TextView
+        android:id="@+id/toloValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_weather_detail_item"
+        android:text="07:25"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="@id/toloTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/toloTv" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?dividerColor"
+        app:layout_constraintTop_toBottomOf="@id/toloTv" />
+
+    <TextView
+        android:id="@+id/qoroobTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingRight="@dimen/padding_weather_detail_item"
+        android:text="غروب"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toloTv" />
+
+    <TextView
+        android:id="@+id/qoroobValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_weather_detail_item"
+        android:text="07:25"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="@id/qoroobTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/qoroobTv" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?dividerColor"
+        app:layout_constraintTop_toBottomOf="@id/qoroobTv" />
+
+    <TextView
+        android:id="@+id/windSpeedTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingRight="@dimen/padding_weather_detail_item"
+        android:text="سرعت باد"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qoroobTv" />
+
+    <TextView
+        android:id="@+id/windSpeedValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_weather_detail_item"
+        android:text="07:25"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="@id/windSpeedTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/windSpeedTv" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?dividerColor"
+        app:layout_constraintTop_toBottomOf="@id/qoroobTv" />
+
+    <TextView
+        android:id="@+id/uvTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingRight="@dimen/padding_weather_detail_item"
+        android:text="اشعه UV"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/windSpeedTv" />
+
+    <TextView
+        android:id="@+id/uvValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_weather_detail_item"
+        android:text="07:25"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="@id/uvTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/uvTv" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?dividerColor"
+        app:layout_constraintTop_toBottomOf="@id/windSpeedTv" />
+
+    <TextView
+        android:id="@+id/rainTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingRight="@dimen/padding_weather_detail_item"
+        android:text="احتمال باران"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/black"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uvTv" />
+
+    <TextView
+        android:id="@+id/rainValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_weather_detail_item"
+        android:text="07:25"
+        android:textAppearance="?textAppearanceBody1"
+        android:textColor="@color/darkGray"
+        app:layout_constraintBottom_toBottomOf="@id/rainTv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/rainTv" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?dividerColor"
+        app:layout_constraintTop_toBottomOf="@id/uvTv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

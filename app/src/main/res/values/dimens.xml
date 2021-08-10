@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_weather_detail_item">8dp</dimen>
+</resources>

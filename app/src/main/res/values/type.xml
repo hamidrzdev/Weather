@@ -52,6 +52,7 @@
 
     <style name="TextAppearance.MyTheme.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textColor">?colorOnPrimary</item>
+        <item name="android:textSize">26sp</item>
     </style>
 
     <style name="TextAppearance.MyTheme.Headline5" parent="TextAppearance.MaterialComponents.Headline5">

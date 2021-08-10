@@ -16,7 +16,10 @@ import com.hamiddev.weather.service.ImageLoadingService
 import saman.zamani.persiandate.PersianDate
 import saman.zamani.persiandate.PersianDateFormat
 
-class DayWeatherAdapter(val imageLoadingService: ImageLoadingService) :
+class DayWeatherAdapter(
+    val imageLoadingService: ImageLoadingService,
+    var dayWeatherListener: DayWeatherListener
+) :
     RecyclerView.Adapter<DayWeatherAdapter.DayWeatherViewHolder>() {
     var dayWeatherList = mutableListOf<DayWeather>()
         set(value) {
@@ -24,7 +27,7 @@ class DayWeatherAdapter(val imageLoadingService: ImageLoadingService) :
             notifyDataSetChanged()
         }
 
-    inner class DayWeatherViewHolder(binding: ItemDayWeatherBinding) :
+    inner class DayWeatherViewHolder(val binding: ItemDayWeatherBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val fullDate = binding.fullDateTv
         private val dayName = binding.dayNameTv
@@ -37,6 +40,10 @@ class DayWeatherAdapter(val imageLoadingService: ImageLoadingService) :
             dayName.text = dayName(dayModel.timestamp)
             imageLoadingService.load(image, weatherIconLink(dayModel.image))
             temp.text = "${formatTemp(dayModel.minTemp)} / ${formatTemp(dayModel.maxTemp)}"
+
+            binding.root.setOnClickListener {
+                dayWeatherListener.onItemClicked(dayModel)
+            }
         }
     }
 
@@ -54,5 +61,10 @@ class DayWeatherAdapter(val imageLoadingService: ImageLoadingService) :
     }
 
     override fun getItemCount(): Int = dayWeatherList.size
+
+}
+
+interface DayWeatherListener {
+    fun onItemClicked(dayModel: DayWeather)
 }
 

@@ -22,6 +22,12 @@ fun fullDate(timestamp: Long): String {
     return persianDateFormat.format(persianDate)
 }
 
+fun digitalDate(timestamp: Long): String {
+    val persianDate = PersianDate(timestamp * 1000)
+    val persianDateFormat = PersianDateFormat("H:m")
+    return persianDateFormat.format(persianDate)
+}
+
 fun formatTemp(temp: String): SpannableString {
     val label = "°C"
     val spannableString = SpannableString("$temp$label")

@@ -10,5 +10,18 @@
         android:id="@+id/mainFragment"
         android:name="com.hamiddev.weather.ui.MainFragment"
         android:label="MainFragment"
-        tools:layout="@layout/main_fragment"/>
+        tools:layout="@layout/main_fragment">
+        <action
+            android:id="@+id/action_mainFragment_to_detailWeatherFragment"
+            app:destination="@id/detailWeatherFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/detailWeatherFragment"
+        android:name="com.hamiddev.weather.ui.DetailWeatherFragment"
+        android:label="DetailWeatherFragment"
+        tools:layout="@layout/fragment_weather_detail" >
+        <argument
+            android:name="weather"
+            app:argType="com.hamiddev.weather.model.DetailWeather" />
+    </dialog>
 </navigation>
