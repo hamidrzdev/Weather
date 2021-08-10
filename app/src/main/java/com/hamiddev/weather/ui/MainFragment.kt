@@ -1,16 +1,34 @@
 package com.hamiddev.weather.ui
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.location.LocationManager
+import android.net.Uri
+import android.provider.Settings
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.material.snackbar.Snackbar
 import com.hamiddev.weather.BaseFragment
+import com.hamiddev.weather.BuildConfig
 import com.hamiddev.weather.common.dayName
 import com.hamiddev.weather.common.fullDate
+import com.hamiddev.weather.common.turnGPSOn
 import com.hamiddev.weather.common.weatherIconLink
 import com.hamiddev.weather.databinding.MainFragmentBinding
 import com.hamiddev.weather.model.DayWeather
 import com.hamiddev.weather.service.ImageLoadingService
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import dagger.hilt.android.AndroidEntryPoint
 import org.neshan.common.model.LatLng
 import saman.zamani.persiandate.PersianDate
@@ -21,18 +39,39 @@ import javax.inject.Inject
 class MainFragment :
     BaseFragment<MainFragmentBinding>(MainFragmentBinding::inflate) {
     val viewModel: MainFragmentViewModel by viewModels()
+    var isGranted = false
+
 
     @Inject
     lateinit var imageLoadingService: ImageLoadingService
+    private lateinit var locationClient: FusedLocationProviderClient
 
     override fun initView() {
         super.initView()
-        callViewModel()
+        getPermission()
         observe()
+        initLocationClient()
     }
 
-    private fun callViewModel() {
-        viewModel.getWeather(LatLng(35.715298, 51.404343))
+    private fun callViewModel(latLng: LatLng) {
+        viewModel.getWeather(LatLng(latLng.latitude, latLng.longitude))
+    }
+
+    @SuppressLint("MissingPermission")
+    fun initLocationClient() {
+        locationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        if (isGranted) {
+            turnGPSOn(requireActivity())
+            if (checkGps())
+                locationClient.lastLocation.addOnSuccessListener { location ->
+                    location?.let {
+                        callViewModel(LatLng(it.latitude,it.longitude))
+                    }
+                }
+            else
+                startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+        } else
+            showSnackBarToGetPermission(requireView())
     }
 
     private fun observe() {
@@ -88,6 +127,56 @@ class MainFragment :
                     }
             }
         }
+    }
+
+    fun checkGps(): Boolean {
+        var gpsStatus = false
+        val locationManager =
+            requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        locationManager?.let {
+            gpsStatus = it.isProviderEnabled(LocationManager.GPS_PROVIDER)
+        }
+
+        return gpsStatus
+    }
+
+    private fun getPermission() {
+        Dexter.withContext(requireContext())
+            .withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            .withListener(object : MultiplePermissionsListener {
+                @SuppressLint("MissingPermission")
+                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                    report?.let {
+                        isGranted = it.areAllPermissionsGranted()
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    p0: MutableList<PermissionRequest>?,
+                    p1: PermissionToken?
+                ) {
+                    p1?.continuePermissionRequest()
+                }
+
+            }).check()
+    }
+
+    private fun showSnackBarToGetPermission(view: View) {
+        Snackbar.make(
+            view,
+            "دسترسی به Location داده نشده است",
+            Snackbar.LENGTH_SHORT
+        )
+            .setAction("دسترسی") {
+                startActivity(Intent().apply {
+                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.fromParts("package", BuildConfig.APPLICATION_ID, null)
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                })
+            }.show()
     }
 
 }

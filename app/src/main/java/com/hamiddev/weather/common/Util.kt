@@ -1,5 +1,9 @@
 package com.hamiddev.weather.common
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
+import android.provider.Settings
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
 import saman.zamani.persiandate.PersianDate
@@ -38,4 +42,19 @@ fun formatTemp(temp: String): SpannableString {
         SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
     )
     return spannableString
+}
+
+fun turnGPSOn(activity: Activity) {
+    val provider: String =
+        Settings.Secure.getString(activity.contentResolver, Settings.Secure.LOCATION_PROVIDERS_ALLOWED)
+    if (!provider.contains("gps")) { //if gps is disabled
+        val poke = Intent()
+        poke.setClassName(
+            "com.android.settings",
+            "com.android.settings.widget.SettingsAppWidgetProvider"
+        )
+        poke.addCategory(Intent.CATEGORY_ALTERNATIVE)
+        poke.data = Uri.parse("3")
+        activity.sendBroadcast(poke)
+    }
 }
